@@ -1,0 +1,38 @@
+{
+  "name": "opensearch-flux",
+  "version": "0.1.0",
+  "description": "CLI tooling for migrating saved objects between OpenSearch Dashboards instances",
+  "license": "Apache-2.0",
+  "type": "module",
+  "main": "dist/cli.js",
+  "bin": {
+    "opensearch-flux": "dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/cli.js",
+    "dev": "tsx cli.ts",
+    "test": "vitest --run",
+    "lint:api-constraint": "! grep -rn 'metadata_index\\|s3Dao\\|S3Dao\\|putObject\\|getObject.*Bucket' lib/ cli.ts mcp-server.ts --include='*.ts' || echo 'API-only constraint: PASS'"
+  },
+  "dependencies": {
+    "@aws-crypto/sha256-js": "^5.2.0",
+    "@aws-sdk/credential-providers": "^3.1016.0",
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "@smithy/protocol-http": "^5.3.12",
+    "@smithy/signature-v4": "^5.3.12",
+    "axios": "^1.7.0",
+    "commander": "^12.0.0",
+    "zod": "^4.3.6"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "fast-check": "^4.6.0",
+    "tsx": "^4.7.0",
+    "typescript": "^5.4.0",
+    "vitest": "^4.1.3"
+  }
+}

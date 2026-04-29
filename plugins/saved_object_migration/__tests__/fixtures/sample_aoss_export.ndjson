@@ -1,0 +1,3 @@
+{"id":"ip1","type":"index-pattern","attributes":{"title":"logs-*","fields":"[{\"name\":\"@timestamp\",\"type\":\"date\"},{\"name\":\"message\",\"type\":\"string\"}]"},"references":[]}
+{"id":"vis1","type":"visualization","attributes":{"title":"Log Count","visState":"{\"type\":\"line\",\"params\":{}}"},"references":[{"name":"kibanaSavedObjectMeta.searchSourceJSON.index","type":"index-pattern","id":"ip1"}]}
+{"id":"dash1","type":"dashboard","attributes":{"title":"AOSS Dashboard","panelsJSON":"[]","kibanaSavedObjectMeta":{"searchSourceJSON":"{\"query\":{\"dataset\":{\"id\":\"aoss-collection-1\",\"type\":\"INDEX\"},\"query\":\"*\"}}"}},"references":[{"name":"panel_0","type":"visualization","id":"vis1"}]}
