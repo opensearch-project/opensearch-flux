@@ -1,0 +1,4 @@
+{"id":"ip1","type":"index-pattern","attributes":{"title":"logs-*","fields":"[{\"name\":\"@timestamp\",\"type\":\"date\"},{\"name\":\"message\",\"type\":\"string\"}]"},"references":[]}
+{"id":"vis1","type":"visualization","attributes":{"title":"Log Count","visState":"{\"type\":\"line\",\"params\":{}}"},"references":[{"name":"kibanaSavedObjectMeta.searchSourceJSON.index","type":"index-pattern","id":"ip1"}]}
+{"id":"vis2","type":"visualization","attributes":{"title":"Error Rate","visState":"{\"type\":\"bar\",\"params\":{}}"},"references":[{"name":"kibanaSavedObjectMeta.searchSourceJSON.index","type":"index-pattern","id":"ip1"}]}
+{"id":"dash1","type":"dashboard","attributes":{"title":"Logs Dashboard","panelsJSON":"[]"},"references":[{"name":"panel_0","type":"visualization","id":"vis1"},{"name":"panel_1","type":"visualization","id":"vis2"}]}

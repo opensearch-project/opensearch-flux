@@ -1,0 +1,54 @@
+{
+  "name": "opensearch-flux",
+  "schemaVersion": "1",
+  "config": {
+    "description": "AI agent for migrating OpenSearch Dashboards saved objects (dashboards, visualizations, index patterns) between instances. Drives the opensearch-flux MCP server through export, inspect, repair, and import workflows."
+  },
+  "clientConfig": {
+    "kiroCli": {
+      "tools": [
+        "@builtin",
+        "@opensearch-flux-mcp"
+      ],
+      "allowedTools": [
+        "fs_read",
+        "code",
+        "glob",
+        "grep",
+        "@opensearch-flux-mcp/test_connection",
+        "@opensearch-flux-mcp/list_dashboards",
+        "@opensearch-flux-mcp/list_data_sources",
+        "@opensearch-flux-mcp/export_dashboard",
+        "@opensearch-flux-mcp/inspect_ndjson",
+        "@opensearch-flux-mcp/extract_data_source_info",
+        "@opensearch-flux-mcp/validate_index_patterns",
+        "@opensearch-flux-mcp/strip_data_source_prefixes",
+        "@opensearch-flux-mcp/remap_data_sources",
+        "@opensearch-flux-mcp/strip_dashboard_dataset",
+        "@opensearch-flux-mcp/remap_index_patterns",
+        "@opensearch-flux-mcp/disable_missing_field_filters",
+        "@opensearch-flux-mcp/list_workspaces",
+        "@opensearch-flux-mcp/create_workspace",
+        "@opensearch-flux-mcp/import_ndjson"
+      ],
+      "resources": [
+        "file://README.md"
+      ],
+      "welcomeMessage": "OpenSearch Flux migration agent ready. I can help you migrate dashboards between OpenSearch instances. Provide your source and target endpoints to get started."
+    }
+  },
+  "dependencies": {
+    "mcpRegistry": {
+      "opensearch-flux-mcp": {
+        "args": [],
+        "env": {},
+        "version": "latest"
+      }
+    },
+    "skills": {
+      "skillNames": [
+        "opensearch-flux"
+      ]
+    }
+  }
+}

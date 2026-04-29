@@ -1,0 +1,8 @@
+{
+  "id": "savedObjectMigration",
+  "version": "opensearchDashboards",
+  "server": true,
+  "ui": true,
+  "requiredPlugins": ["navigation"],
+  "optionalPlugins": ["dataSource", "dataSourceManagement", "home"]
+}
