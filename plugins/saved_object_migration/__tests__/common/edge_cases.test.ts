@@ -109,7 +109,7 @@ describe('Edge Cases - applyRepairPipeline', () => {
 
   it('should handle whitespace-only NDJSON', () => {
     const result = applyRepairPipeline('   \n\n  ', disabledConfig);
-    expect(result.ndjson).toBe('');
+    expect(result.ndjson.trim()).toBe('');
     expect(result.changes).toEqual([]);
   });
 

@@ -14,9 +14,11 @@ describe('StepIndicator', () => {
       { title: 'Step 3', status: 'incomplete' as const },
     ];
     render(<StepIndicator steps={steps} />);
-    expect(screen.getByText('Step 1')).toBeInTheDocument();
-    expect(screen.getByText('Step 2')).toBeInTheDocument();
-    expect(screen.getByText('Step 3')).toBeInTheDocument();
+    // EUI's horizontal step indicator renders each title in both a visible
+    // node and a screen-reader-only node, so getByText finds duplicates.
+    expect(screen.getAllByText('Step 1').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('Step 2').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('Step 3').length).toBeGreaterThan(0);
   });
 
   it('should render with empty steps array', () => {
