@@ -1,9 +1,5 @@
 import { readFileSync } from 'fs';
-import { join, dirname } from 'path';
-import { fileURLToPath } from 'url';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+import { join } from 'path';
 
 export const SAMPLE_DASHBOARD = readFileSync(join(__dirname, 'sample_dashboard.ndjson'), 'utf-8');
 export const SAMPLE_WITH_DATASOURCE = readFileSync(join(__dirname, 'sample_with_datasource.ndjson'), 'utf-8');

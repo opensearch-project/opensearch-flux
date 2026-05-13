@@ -18,17 +18,14 @@ const mockTypeRegistry = {
 };
 
 const mockExportStream = jest.fn();
-jest.mock('../../../../src/core/server', () => {
-  const actual = jest.requireActual('../../../../src/core/server');
-  return {
-    ...actual,
-    exportSavedObjectsToStream: (...args: unknown[]) => mockExportStream(...args),
-    importSavedObjectsFromStream: jest.fn().mockResolvedValue({
-      success: true,
-      successCount: 2,
-    }),
-  };
-});
+// Do NOT requireActual: OSD's core/server barrel hits a circular-import on load.
+jest.mock('../../../../src/core/server', () => ({
+  exportSavedObjectsToStream: (...args: unknown[]) => mockExportStream(...args),
+  importSavedObjectsFromStream: jest.fn().mockResolvedValue({
+    success: true,
+    successCount: 2,
+  }),
+}));
 
 import { importSavedObjectsFromStream } from '../../../../src/core/server';
 
