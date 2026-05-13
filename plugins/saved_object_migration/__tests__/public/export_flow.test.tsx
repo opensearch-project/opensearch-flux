@@ -14,6 +14,7 @@ const mockNotifications = {
     addSuccess: jest.fn(),
     addError: jest.fn(),
     addWarning: jest.fn(),
+    addDanger: jest.fn(),
   },
 };
 
@@ -24,9 +25,10 @@ describe('ExportFlow', () => {
 
   it('should render step indicator with all steps', () => {
     render(<ExportFlow http={mockHttp as any} notifications={mockNotifications as any} />);
-    expect(screen.getByText('Select Dashboards')).toBeInTheDocument();
-    expect(screen.getByText('Inspect')).toBeInTheDocument();
-    expect(screen.getByText('Download')).toBeInTheDocument();
+    // EUI step indicator emits each title in visible + screen-reader copies.
+    expect(screen.getAllByText('Select Dashboards').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('Inspect').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('Download').length).toBeGreaterThan(0);
   });
 
   it('should start at step 0 (Select Dashboards)', () => {
@@ -106,58 +108,4 @@ describe('ExportFlow', () => {
     });
   });
 
-  it('should render inspection report when on step 1', () => {
-    const mockReport = {
-      summary: { totalObjects: 2, errors: 0, warnings: 0, info: 1 },
-      objectsByType: { dashboard: 1, visualization: 1 },
-      issues: [
-        {
-          severity: 'INFO' as const,
-          type: 'OBJECT_COUNT',
-          objectId: '',
-          objectType: '',
-          message: 'Export contains 2 objects',
-          phase: 'PRE_EXPORT' as const,
-        },
-      ],
-      targetPlatform: null,
-      nonRenderableTypeSummary: null,
-    };
-
-    const TestWrapper = () => {
-      const [state, dispatch] = React.useReducer(
-        (s: any, a: any) => {
-          if (a.type === 'INIT') {
-            return {
-              currentStep: 1,
-              inspectionReport: mockReport,
-              ndjson: SAMPLE_DASHBOARD,
-              selectedDashboards: [],
-              error: null,
-            };
-          }
-          return s;
-        },
-        { currentStep: 0, inspectionReport: null, ndjson: '', selectedDashboards: [], error: null }
-      );
-
-      React.useEffect(() => {
-        dispatch({ type: 'INIT' });
-      }, []);
-
-      if (state.currentStep === 1 && state.inspectionReport) {
-        return (
-          <div>
-            <div>Inspect</div>
-            <div>Total Objects: {state.inspectionReport.summary.totalObjects}</div>
-          </div>
-        );
-      }
-
-      return <div>Loading</div>;
-    };
-
-    render(<TestWrapper />);
-    expect(screen.getByText(/Total Objects: 2/i)).toBeInTheDocument();
-  });
 });

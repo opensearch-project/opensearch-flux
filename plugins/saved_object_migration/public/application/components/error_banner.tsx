@@ -1,5 +1,6 @@
 import React from 'react';
-import { EuiCallOut } from '@elastic/eui';
+import { EuiCallOut, EuiButtonIcon, EuiFlexGroup, EuiFlexItem } from '@elastic/eui';
+import { i18n } from '@osd/i18n';
 
 interface ErrorBannerProps {
   title: string;
@@ -12,13 +13,24 @@ export const ErrorBanner: React.FC<ErrorBannerProps> = ({ title, error, onDismis
 
   return (
     <div role="alert" aria-live="assertive">
-      <EuiCallOut
-        color="danger"
-        title={title}
-        onDismiss={onDismiss}
-        iconType="alert"
-      >
-        <p>{errorMessage}</p>
+      <EuiCallOut color="danger" title={title} iconType="alert">
+        <EuiFlexGroup justifyContent="spaceBetween" alignItems="flexStart" gutterSize="s">
+          <EuiFlexItem>
+            <p>{errorMessage}</p>
+          </EuiFlexItem>
+          {onDismiss && (
+            <EuiFlexItem grow={false}>
+              <EuiButtonIcon
+                iconType="cross"
+                color="danger"
+                aria-label={i18n.translate('savedObjectMigration.errorBanner.dismiss', {
+                  defaultMessage: 'Dismiss',
+                })}
+                onClick={onDismiss}
+              />
+            </EuiFlexItem>
+          )}
+        </EuiFlexGroup>
       </EuiCallOut>
     </div>
   );

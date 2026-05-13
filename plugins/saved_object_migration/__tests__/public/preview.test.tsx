@@ -56,8 +56,9 @@ describe('Preview', () => {
         dispatch={mockDispatch}
       />
     );
-    expect(screen.getByText('Type')).toBeInTheDocument();
-    expect(screen.getByText('Status')).toBeInTheDocument();
+    // EuiBasicTable emits header text in multiple variants for responsive/a11y.
+    expect(screen.getAllByText('Type').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('Status').length).toBeGreaterThan(0);
   });
 
   it('should render back button', () => {
@@ -141,15 +142,22 @@ describe('Preview', () => {
   });
 
   it('should show warning callout when issues remain', () => {
-    const { container } = render(
+    // NDJSON with a dangling reference produces issues during re-inspection.
+    const ndjsonWithMissingRef = JSON.stringify({
+      id: 'vis1',
+      type: 'visualization',
+      attributes: { title: 'Viz' },
+      references: [{ name: 'ref', type: 'index-pattern', id: 'missing-ip' }],
+    });
+    render(
       <Preview
-        ndjson={SAMPLE_DASHBOARD}
+        ndjson={ndjsonWithMissingRef}
         originalReport={mockOriginalReport}
         dispatch={mockDispatch}
       />
     );
-    const warningCallout = container.querySelector('.euiCallOut--warning');
-    expect(warningCallout).toBeInTheDocument();
+    // remaining > 0 → callout shows a non-zero "N remaining" count.
+    expect(screen.getByText(/[1-9]\d* remaining/)).toBeInTheDocument();
   });
 
   it('should disable proceed button when no objects selected', () => {
@@ -180,7 +188,9 @@ describe('Preview', () => {
         dispatch={mockDispatch}
       />
     );
-    expect(screen.getByText('Type')).toBeInTheDocument();
+    // Table renders → at least one object row should appear. SAMPLE_DASHBOARD
+    // has a "Log Count" visualization; assert its title shows up in the table.
+    expect(screen.getByText('Log Count')).toBeInTheDocument();
   });
 
   it('should handle empty NDJSON', () => {
