@@ -1,0 +1,8 @@
+{
+  "name": "saved_object_migration",
+  "version": "1.0.0",
+  "private": true,
+  "devDependencies": {
+    "fast-check": "^3.23.2"
+  }
+}
