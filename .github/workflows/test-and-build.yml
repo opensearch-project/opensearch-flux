@@ -49,11 +49,11 @@ jobs:
       - name: Checkout opensearch-flux
         uses: actions/checkout@v4
         with:
-          path: OpenSearch-Dashboards/plugins/opensearch-flux
+          path: opensearch-flux
 
       - name: Copy plugin into OSD plugins directory
         run: |
-          cp -r OpenSearch-Dashboards/plugins/opensearch-flux/plugins/${{ env.PLUGIN_NAME }} \
+          cp -r opensearch-flux/plugins/${{ env.PLUGIN_NAME }} \
                 OpenSearch-Dashboards/plugins/${{ env.PLUGIN_NAME }}
 
       - name: Setup Node
