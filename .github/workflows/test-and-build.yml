@@ -12,10 +12,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
 
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@3235b876344d2a9aa001b8d1453c930bba69e610 # v3
         with:
           node-version: '22'
 
@@ -29,7 +29,7 @@ jobs:
         run: cd src && npx vitest run --coverage
 
       - name: Upload coverage
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@b9fd7d16f6d7d1b5d2bec1a2887e65ceed900238 # v4
         with:
           flags: mcp-server
           directory: ./src
@@ -40,14 +40,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout OpenSearch Dashboards
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
         with:
           repository: opensearch-project/OpenSearch-Dashboards
           ref: ${{ env.OPENSEARCH_DASHBOARDS_VERSION }}
           path: OpenSearch-Dashboards
 
       - name: Checkout opensearch-flux
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
         with:
           path: opensearch-flux
 
@@ -57,7 +57,7 @@ jobs:
                 OpenSearch-Dashboards/plugins/${{ env.PLUGIN_NAME }}
 
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@3235b876344d2a9aa001b8d1453c930bba69e610 # v3
         with:
           node-version-file: './OpenSearch-Dashboards/.nvmrc'
           registry-url: 'https://registry.npmjs.org'
@@ -70,7 +70,7 @@ jobs:
           npm i -g yarn@$YARN_VERSION
 
       - name: Bootstrap OSD
-        uses: nick-fields/retry@v2
+        uses: nick-fields/retry@14672906e672a08bd6eeb15720e9ed3ce869cdd4 # v2
         with:
           timeout_minutes: 20
           max_attempts: 2
@@ -85,7 +85,7 @@ jobs:
           node scripts/jest.js --roots plugins/${{ env.PLUGIN_NAME }} --coverage --maxWorkers=100%
 
       - name: Upload coverage
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@b9fd7d16f6d7d1b5d2bec1a2887e65ceed900238 # v4
         with:
           flags: osd-plugin
           directory: ./OpenSearch-Dashboards/plugins/${{ env.PLUGIN_NAME }}
